@@ -1,0 +1,23 @@
+# Sample workflow for refactoring set-output to use environment variables
+
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set version environment variables
+        run: |
+          echo "VERSION_NAME=${{ env.VERSION_NAME }}" >> $GITHUB_ENV
+          echo "VERSION_CODE=${{ env.VERSION_CODE }}" >> $GITHUB_ENV
+      - name: Use version environment variables
+        run: |
+          echo "Version Name: $VERSION_NAME"
+          echo "Version Code: $VERSION_CODE"
